@@ -155,8 +155,42 @@ Plugin.extend({
                 this._data = data;
                 var data = _.clone(this._data);
                 data.id = pid;
-                data.__text = this._plginConfig.text;
+                data.__text = this._plginConfig.text;    
+                if(this._plginConfig.showborder){
+                    var dims = this.relativeDims();
+                    var div = document.getElementById(data.id);
+                    if (div) {
+                        jQuery("#" + data.id).remove();
+                    }
+                    div = document.createElement('div');
+                    if (data.style)
+                        div.setAttribute("style", data.style);
+                    div.id = data.id;
+                    div.classList.add('borderplugin');
+                   
+                    // var fontSize = this.updateFontSize(parseFloat(data.fontSize));
+                    // div.style.fontSize = '18px';
+                    div.style.fontFamily = data.font;
+                    div.style.fontWeight = this._plginConfig.fontweight ? "bold" : "normal";
+                    div.style.fontStyle = this._plginConfig.fontstyle ?  "italic" : "normal";
+                    div.style.color = data.color;
+                    div.style.textAlign = data.align ? data.align : 'center';
+                    div.style.width = dims.w + 'px';
+                    div.style.height = dims.h + 10 + 'px'; 
+                    div.style.padding = "2px";
+                    div.style.border = "solid 2px rgba(0,0,0,1)";
+                    div.style.position = 'absolute';
+                    var parentDiv = document.getElementById(Renderer.divIds.gameArea);
+                    parentDiv.insertBefore(div, parentDiv.childNodes[0]);
+            
+                    jQuery("#" + data.id).html(data.__text);
+                    this._div = div;
+                    this._self = new createjs.DOMElement(div);
+                    this._self.x = dims.x;
+                    this._self.y = dims.y;
+                }  else {          
                 PluginManager.invoke('text', data, instance._parent, instance._stage, instance._theme);
+                }
                 break;
         }
     },
@@ -211,4 +245,4 @@ Plugin.extend({
             plugin.dispatchEvent(event);
     }
 });
-//# sourceURL=textrenderer.js
+//# sourceURL=textnewrenderer.js

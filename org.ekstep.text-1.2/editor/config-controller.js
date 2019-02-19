@@ -27,6 +27,7 @@ angular.module('editorApp')
         // Removed unsupported font family
         $scope.fontFamily = pluginInstance.supportedFonts;
         $scope.fontSize = [18, 20, 22, 24, 26, 28, 32, 36, 40, 44, 48, 54, 60, 66, 72, 80, 88, 96];
+        $scope.showborder =['true', 'false'];
         $scope.fontGroupConfig = {
             "propertyName": "font",
             "dataType": "group",
@@ -107,6 +108,9 @@ angular.module('editorApp')
             "maximumValue": 100
         };
 
+        // var isShowBorder = ecEditor.jQuery('#check_id').is(":checked") ? true : false;
+        // console.log('isshowborder: ', isShowBorder);
+
 
         ecEditor.jQuery("#WordInfo").click(function(event){
             if (!$(this).hasClass('disabled') && !$(this).hasClass('word-info-enabled')) {
@@ -149,6 +153,18 @@ angular.module('editorApp')
         setTimeout(function() {
             ecEditor.jQuery('.font-face-dropdown').dropdown();
             ecEditor.jQuery('.font-size-dropdown').dropdown();
+            ecEditor.jQuery('.border-dropdown').dropdown();
+            // ecEditor.jQuery('#showBorders').checkbox({
+            //     onChecked: function() {
+            //         $scope.configData.showborder = true;
+            //     },
+            //     onUnchecked: function() {
+            //         $scope.configData.showborder = false;
+            //     }
+            // });
+           
+            // if ($scope.configData.showborder) ecEditor.jQuery("#showBorders").checkbox('set checked');
+         
             ecEditor.jQuery("#readalongautoplay").checkbox({
                 onChecked: function() {
                     $scope.configData.autoplay = true;
@@ -159,9 +175,10 @@ angular.module('editorApp')
             });
             if ($scope.configData.autoplay) ecEditor.jQuery("#readalongautoplay").checkbox('set checked');
         }, 0);
-
+        console.log('border configdata: ', $scope.configData );
         $scope.onTextSelect = function(event, data) {
             data = ecEditor.getCurrentObject() || data;
+            console.log('data in plg: ', data);
             if (data.attributes.textType == "readalong") {
                 $scope.hasReadAlong = true;
                 $scope.hasWordInfo = false;

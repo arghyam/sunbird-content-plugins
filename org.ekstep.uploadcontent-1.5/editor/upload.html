@@ -1,4 +1,10 @@
 <script type="text/ng-template" ng-app="org.ekstep.uploadcontent-1.4" ng-controller="uploadController as $ctrl" id="partials_org.ekstep.uploadcontent.html">
+    <style>
+        .error-red {
+           color: #DB2828;
+           font-size: 11px;
+       }
+   </style>
 <div type="text/template" id="qq-template-validation" style="display: none">
     <div class="qq-uploader-selector qq-uploader custom-qq-uploader" style="min-height:250px;">
 
@@ -76,7 +82,10 @@
         <div class="field" id='url-upload'>
             <label>URL</label>
             <div class="ui fluid transparent input">
-                <input type="text" placeholder="https://" ng-model="contentURL">
+                <input type="text" placeholder="https://" ng-model="contentURL" ng-blur="checkURL();">
+            </div>
+            <div ng-if="formaterror" class="error-red">
+                Uploaded file type not supported, please upload supported format.
             </div>
         </div>
         <div id="upload-content-div" style="margin-top: 15px"></div>
@@ -92,7 +101,7 @@
         <div class="ui buttons">
             <button class="ui orange button" ng-click="uploadFormClose();generateTelemetry({id:'button',type:'click',subtype:'close',target:'closeupload',})" ng-disabled="showLoaderIcon" ng-bind="uploadCancelLabel"></button>
             <div class="or"></div>
-            <button class="ui blue button" ng-click="upload(); generateTelemetry({id:'button',type:'click',subtype:'upload',target:'uploadButton'}) " ng-disabled="showLoaderIcon">Upload</button>
+            <button class="ui blue button" ng-click="upload(); generateTelemetry({id:'button',type:'click',subtype:'upload',target:'uploadButton'}) " ng-disabled="showLoaderIcon || formaterror">Upload</button>
         </div>
     </div>
 </div>

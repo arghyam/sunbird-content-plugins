@@ -6,6 +6,7 @@ angular.module('org.ekstep.uploadcontent-1.5', []).controller('uploadController'
     $scope.contentURL = undefined;
     $scope.newContent = false;
     $scope.showLoaderIcon = false;
+    $scope.formaterror = false;
     $scope.loaderIcon = ecEditor.resolvePluginResource("org.ekstep.uploadcontent", "1.5", "editor/loader.gif");
     $scope.uploadCancelLabel = ecEditor.getContext('contentId') ? 'Cancel' : 'Close Editor';
 
@@ -398,5 +399,23 @@ angular.module('org.ekstep.uploadcontent-1.5', []).controller('uploadController'
             "stage": ""
         })
     }    
+
+    //forWater chnages
+    $scope.checkURL = function () {
+        console.log('check url');
+        // pdf, mp4, webm, epub, youtube, h5p and html zip --- supported
+        if($scope.contentURL) {
+            if ($scope.contentURL.indexOf('pdf') != -1 || $scope.contentURL.indexOf('mp4') != -1 || 
+            $scope.contentURL.indexOf('webm') != -1 || $scope.contentURL.indexOf('epub') != -1 || 
+            $scope.contentURL.indexOf('youtube') != -1 || $scope.contentURL.indexOf('h5p') != -1 || 
+            $scope.contentURL.indexOf('html') != -1 || $scope.contentURL.indexOf('zip') != -1  ) {
+                $scope.formaterror = false;
+            } else {
+                $scope.formaterror = true;
+            }
+        } else {
+            $scope.formaterror = false;
+        }
+    }
 }]);
 //# sourceURL=uploadContentApp.js

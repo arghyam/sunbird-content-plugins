@@ -581,7 +581,7 @@ angular.module('assetbrowserapp').controller('browsercontroller', ['$scope', '$i
                 ctrl.uploadAsset(event, ctrl.assetMeta);
             } else {
                 // Validate file if not editing meta data
-                var validateFile = instance.fileValidation('assetfile', ctrl.allowedFileSize, ctrl.allowedMimeTypes);
+                var validateFile = instance.fileValidation('assetfile', ctrl.allowedFileSize, ctrl.allowedMimeTypes, ctrl.plugin);
                 if (validateFile) {
                     ctrl.uploadAsset(event, ctrl.assetMeta);
                 } else {

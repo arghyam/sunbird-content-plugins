@@ -120,7 +120,7 @@ org.ekstep.contenteditor.basePlugin.extend({
      *   @param id {fieldId} Id of the field
      *   @memberof assetBrowser
      */
-    fileValidation: function(fieldId, allowedFileSize, allowedMimeTypes) {
+    fileValidation: function(fieldId, allowedFileSize, allowedMimeTypes, pluginName) {
         var instance = this;
 
         /*Check for browser support for all File API*/
@@ -138,8 +138,15 @@ org.ekstep.contenteditor.basePlugin.extend({
             /*Check mime type*/
             if (ftype) {
                 if (org.ekstep.contenteditor.api.jQuery.inArray(ftype, allowedMimeTypes) == -1) {
-                    alert("File type is not allowed!");
-                    return false;
+                    // alert("File type is not allowed!");
+                    // return false;
+                    if(pluginName === 'audio') {
+                        alert("Uploaded file type is not supported, please upload mp3,mp4, mpeg, ogg, wav or webm format file.");
+                        return false;
+                    } else if(pluginName === 'image') {
+                        alert("Uploaded file type is not supported, please upload jpeg, jpg or png format file.");
+                        return false;
+                    }
                 }
             }
             /*If no file type is detected, return true*/
